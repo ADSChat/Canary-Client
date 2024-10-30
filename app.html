@@ -24,6 +24,8 @@
             justify-content: space-between;
             border-radius: 20px; /* Add rounded corners to the server bar */
             margin-left: 10px; /* Add margin to move server bar away from the edge */
+            margin-top: 10px; /* Add margin to move server bar away from the top */
+            margin-bottom: 10px; /* Add margin to move server bar away from the bottom */
         }
         .servers {
             display: flex;
@@ -61,7 +63,7 @@
             border-radius: 20px;
             display: flex;
             flex-direction: column;
-            height: fit-content; /* Make server bar same height as user and friend lists*/
+            height: calc(100vh - 20px);  /* Full height for user and friend lists */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: transform 0.2s ease; /* Add smooth transition */
         }
@@ -80,7 +82,7 @@
             background-color: #444;
         }
         .friend-list {
-            width: 200px; /* Set width for consistency */
+            flex: 1; /* Allow friend list to take up remaining space */
             padding: 10px;
             background-color: rgba(50, 50, 50, 0.9);
             margin: 10px;
@@ -89,7 +91,6 @@
             flex-direction: column;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: transform 0.2s ease;
-            height: fit-content; /* Make server bar same height as user and friend lists*/
         }
         .friend-list:hover {
             transform: translateX(5px);
@@ -173,33 +174,60 @@
         /* Popup Style */
         .popup {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #181818; /* Match body background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100; /* Ensure popup is on top */
+            transition: opacity 0.5s ease-in-out;
+            opacity: 1;
+        }
+        .popup-inner {
             background-color: #FF5733; /* Red color */
             color: #FFFFFF;
             padding: 40px; /* Increased padding */
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            z-index: 100; /* Ensure popup is on top */
             width: 400px; /* Increased width */
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-        .popup h2 {
+        .popup-inner h2 {
             margin-bottom: 10px;
         }
-        .popup a {
+        .popup-inner a {
             color: #FFFFFF;
             text-decoration: none;
             font-weight: bold;
         }
-        .popup a:hover {
+        .popup-inner a:hover {
             text-decoration: underline;
         }
-        .close-button {
-            display: none; /* Hide the close button initially */
+        .loading-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            height: 80px;
+            width: 80px;
+            border-radius: 50%;
+            border: 6px solid #f3f3f3;
+            border-color: #FF5733 transparent #FF5733 transparent;
+            animation: spin 1.2s linear infinite;
+        }
+        .loading-icon img {
+            width: 100%;
+            height: 100%;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Discover Menu Style */
@@ -248,34 +276,18 @@
         .discover-menu .server-item:hover {
             background-color: #444;
         }
-
-        /* Loading Animation */
-        .loading-animation {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px;
-            height: 80px;
-            width: 80px;
-            border-radius: 50%;
-            border: 6px solid #f3f3f3;
-            border-color: #FF5733 transparent #FF5733 transparent;
-            animation: spin 1.2s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="popup" id="popup">
-        <h2>Loading Canary Chat</h2>
-        <div class="loading-animation"></div>
-        <img src="logo.png" alt="Canary Chat Logo" style="width: 100px; height: 100px; margin-top: 20px;">
-        <button class="close-button" onclick="closePopup()">✕</button>
+        <div class="popup-inner">
+            <h2>Loading Canary Chat</h2>
+            <div class="loading-icon">
+                <img src="loading.gif" alt="Loading Icon">
+            </div>
+            <img src="logo.png" alt="Canary Chat Logo" style="width: 100px; height: 100px; margin-top: 20px;">
+        </div>
     </div>
     <div class="server-bar">
         <div class="servers">
@@ -295,7 +307,7 @@
         <div class="user-item" onclick="selectUser('Emma')">Emma</div>
         <div class="user-item" onclick="selectUser('Ava')">Ava</div>
     </div>
-    <div class="friend-list" id="friendList">
+    <div class="friend-list">
         <h3>Direct Messages</h3>
         <div class="friend-item" onclick="selectUser('Joe')">Joe</div>
         <div class="friend-item" onclick="selectUser('Steve')">Steve</div>
@@ -564,11 +576,7 @@
         // Function to close the popup
         function closePopup() {
             document.getElementById('popup').style.display = 'none';
-            // You might want to add a small delay for the animation to finish
-            // before showing the content
-            setTimeout(function() {
-                document.body.style.overflow = 'auto';
-            }, 200);
+            document.body.style.overflow = 'auto';
         }
 
         // Show popup on page load
@@ -587,7 +595,7 @@
             setTimeout(function() {
                 document.getElementById('popup').style.display = 'none';
                 document.body.style.overflow = 'auto';
-            }, 6000); // Close 1 second after the main layout appears
+            }, 5000); // Close 1 second after the main layout appears
         }
 
     </script>
