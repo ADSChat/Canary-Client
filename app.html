@@ -178,11 +178,11 @@
             transform: translate(-50%, -50%);
             background-color: #FF5733; /* Red color */
             color: #FFFFFF;
-            padding: 20px;
+            padding: 40px; /* Increased padding */
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             z-index: 100; /* Ensure popup is on top */
-            width: 300px;
+            width: 400px; /* Increased width */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -199,13 +199,7 @@
             text-decoration: underline;
         }
         .close-button {
-            padding: 10px; /* Add some padding for better clicking area */
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            font-size: 20px;
-            color: #FFFFFF;
-            margin-left: auto; /* Push the button to the right */
+            display: none; /* Hide the close button initially */
         }
 
         /* Discover Menu Style */
@@ -254,13 +248,33 @@
         .discover-menu .server-item:hover {
             background-color: #444;
         }
+
+        /* Loading Animation */
+        .loading-animation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            height: 80px;
+            width: 80px;
+            border-radius: 50%;
+            border: 6px solid #f3f3f3;
+            border-color: #FF5733 transparent #FF5733 transparent;
+            animation: spin 1.2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="popup" id="popup">
-        <h2>This is a joke version of Canary Chat!</h2>
-        <p>The real app is being developed at <a href="https://canarychat.me/" target="_blank">https://canarychat.me/</a></p>
+        <h2>Loading Canary Chat</h2>
+        <div class="loading-animation"></div>
+        <img src="logo.png" alt="Canary Chat Logo" style="width: 100px; height: 100px; margin-top: 20px;">
         <button class="close-button" onclick="closePopup()">✕</button>
     </div>
     <div class="server-bar">
@@ -560,6 +574,20 @@
         // Show popup on page load
         window.onload = function() {
             document.getElementById('popup').style.display = 'flex';
+
+            // Delay before showing the main layout
+            setTimeout(function() {
+                document.getElementById('userList').style.display = 'flex';
+                document.getElementById('friendList').style.display = 'flex';
+                document.querySelector('.server-bar').style.display = 'flex';
+                document.querySelector('.discover-icon').style.display = 'flex';
+            }, 5000); 
+
+            // Delay before closing the popup
+            setTimeout(function() {
+                document.getElementById('popup').style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }, 6000); // Close 1 second after the main layout appears
         }
 
     </script>
