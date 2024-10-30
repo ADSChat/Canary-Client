@@ -10,6 +10,7 @@
             color: #FFFFFF;
             font-family: 'Roboto', sans-serif;
             display: flex;
+            flex-direction: column; /* Align elements vertically */
             margin: 0;
             height: 100vh;
             overflow: hidden; /* Hide scrollbar for popup */
@@ -280,15 +281,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="popup" id="popup">
-        <div class="popup-inner">
-            <h2>Loading Canary Chat</h2>
-            <div class="loading-icon">
-                <img src="loading.gif" alt="Loading Icon">
-            </div>
-            <img src="logo.png" alt="Canary Chat Logo" style="width: 100px; height: 100px; margin-top: 20px;">
-        </div>
+
+    <div style="background-color: #FF5733; /* Red color */
+            color: #FFFFFF;
+            padding: 10px; /* Increased padding */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%; /* Increased width */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;">
+        <h2>This is a joke edition of Canary Chat. Head to https://canarychat.me/ for the new updated version.</h2>
     </div>
+
     <div class="server-bar">
         <div class="servers">
             <div class="server-icon" onclick="showServer('Canary')" style="background-image: url('canary.png');"></div>
