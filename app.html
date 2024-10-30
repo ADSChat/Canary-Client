@@ -589,14 +589,10 @@
                 document.getElementById('friendList').style.display = 'flex';
                 document.querySelector('.server-bar').style.display = 'flex';
                 document.querySelector('.discover-icon').style.display = 'flex';
-                document.getElementById('popup').style.opacity = 0;
-            }, 5000); 
+            }, 5000);
 
-            // Delay before closing the popup
-            setTimeout(function() {
-                document.getElementById('popup').style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }, 6000); // Close 1 second after the main layout appears
+            // Close popup immediately after showing the main layout
+            setTimeout(closePopup, 5000); 
         }
 
     </script>
