@@ -1,6 +1,7 @@
 # Canary-Client
 
-This is the hell edition of the Canary Client (It's not actually part of the project)
+This is the hell / halloween edition of the Canary Client (It's not actually part of the project)
+View it at: https://adschat.github.io/Canary-Client
 
 **Installation**
 
