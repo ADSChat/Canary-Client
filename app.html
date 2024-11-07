@@ -3,19 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canary Chat App (Joke Version)</title>
+    <title>Canary Chat App</title>
     <style>
         body {
-            background-color: #181818;
+            background-color: #000000;
             color: #FFFFFF;
-            font-family: 'Roboto', sans-serif;
+            font-family: Arial, sans-serif;
             display: flex;
-            flex-direction: column; /* Align elements vertically */
             margin: 0;
             height: 100vh;
-            overflow: hidden; /* Hide scrollbar for popup */
         }
-
         .server-bar {
             width: 60px;
             background-color: #2C2F33;
@@ -23,10 +20,6 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            border-radius: 20px; /* Add rounded corners to the server bar */
-            margin-left: 10px; /* Add margin to move server bar away from the edge */
-            margin-top: 10px; /* Add margin to move server bar away from the top */
-            margin-bottom: 10px; /* Add margin to move server bar away from the bottom */
         }
         .servers {
             display: flex;
@@ -35,11 +28,10 @@
         .server-icon {
             width: 40px;
             height: 40px;
-            margin: 10px auto; /* Center the icons horizontally */
+            margin: 10px 0;
             border-radius: 50%;
             cursor: pointer;
             background-size: cover;
-            transition: background-color 0.2s ease; /* Add smooth transition */
         }
         .server-icon:hover {
             background-color: #99AAB5;
@@ -47,14 +39,10 @@
         .discover-icon {
             width: 40px;
             height: 40px;
-            margin: 10px auto; /* Center the icon horizontally */
+            margin: 10px 0;
             border-radius: 50%;
             cursor: pointer;
             background-size: cover;
-            transition: background-color 0.2s ease;
-        }
-        .discover-icon:hover {
-            background-color: #99AAB5;
         }
         .user-list, .online-users {
             width: 200px;
@@ -64,12 +52,8 @@
             border-radius: 20px;
             display: flex;
             flex-direction: column;
-            height: calc(100vh - 20px);  /* Full height for user and friend lists */
+            height: calc(100vh - 20px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s ease; /* Add smooth transition */
-        }
-        .user-list:hover, .online-users:hover {
-            transform: translateX(5px);
         }
         .user-item {
             padding: 10px;
@@ -77,13 +61,12 @@
             background-color: #333;
             cursor: pointer;
             border-radius: 5px;
-            transition: background-color 0.2s ease;
         }
         .user-item:hover {
             background-color: #444;
         }
         .friend-list {
-            flex: 1; /* Allow friend list to take up remaining space */
+            flex: 1;
             padding: 10px;
             background-color: rgba(50, 50, 50, 0.9);
             margin: 10px;
@@ -91,10 +74,6 @@
             display: flex;
             flex-direction: column;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s ease;
-        }
-        .friend-list:hover {
-            transform: translateX(5px);
         }
         .friend-item {
             padding: 10px;
@@ -102,7 +81,6 @@
             background-color: #333;
             cursor: pointer;
             border-radius: 5px;
-            transition: background-color 0.2s ease;
         }
         .friend-item:hover {
             background-color: #444;
@@ -118,15 +96,10 @@
             border-radius: 20px;
             height: calc(100vh - 20px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s ease;
-        }
-        .chat-box:hover {
-            transform: translateX(5px);
         }
         .chat-content {
             flex: 1;
             overflow-y: auto;
-            padding: 10px;
         }
         .chat-input {
             margin-top: 10px;
@@ -139,20 +112,17 @@
             color: #FFFFFF;
             border: none;
             border-radius: 5px;
-            font-size: 16px;
         }
         .message {
             margin: 15px 0;
             padding: 10px;
             background-color: #444;
             border-radius: 10px;
-            word-break: break-word; /* Allow words to wrap */
         }
         .typing-indicator {
             display: none;
             color: #AAA;
             font-style: italic;
-            margin-bottom: 10px;
         }
         .back-button {
             margin: 10px;
@@ -162,36 +132,13 @@
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-        .back-button:hover {
-            background-color: #FFD700;
         }
         h3 {
             text-align: center;
-            margin-bottom: 10px;
-        }
-
-        /* Red Heading Style */
-        .red-heading {
-            background-color: #FF5733; /* Red color */
-            color: #FFFFFF;
-            padding: 10px; /* Increased padding */
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            width: 100%; /* Full width */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="red-heading">
-        <h2>This is a joke edition of Canary Chat. Head to https://canarychat.me/ for the new updated version.</h2>
-    </div>
     <div class="server-bar">
         <div class="servers">
             <div class="server-icon" onclick="showServer('Canary')" style="background-image: url('canary.png');"></div>
@@ -226,31 +173,15 @@
         </div>
         <div class="typing-indicator" id="typingIndicator"></div>
     </div>
-
-    <div class="discover-menu" id="discoverMenu">
-        <h3>Discover</h3>
-        <div class="user-item" onclick="selectUser('Liam')">Liam</div>
-        <div class="user-item" onclick="selectUser('Noah')">Noah</div>
-        <div class="user-item" onclick="selectUser('Olivia')">Olivia</div>
-        <div class="user-item" onclick="selectUser('Emma')">Emma</div>
-        <div class="user-item" onclick="selectUser('Ava')">Ava</div>
-        <div class="server-item" onclick="showServer('Canary')">Canary</div>
-        <div class="server-item" onclick="showServer('Pandas')">Pandas</div>
-        <div class="server-item" onclick="showServer('Rexland')">Rexland</div>
-        <div class="server-item" onclick="showServer('Dragons')">Dragons</div>
-        <div class="server-item" onclick="showServer('Cyber City')">Cyber City</div>
-    </div>
-
     <script>
         const botNames = ["Bot Liam", "Bot Noah", "Bot Olivia", "Bot Emma", "Bot Ava"];
-        
+
         function selectUser(user) {
             document.getElementById('userList').style.display = 'none';
             document.querySelector('.friend-list').style.display = 'none';
             document.getElementById('chatBox').style.display = 'flex';
             document.getElementById('chatContent').innerHTML = `<div class="message">Chatting with ${user}</div>`;
             document.getElementById('typingIndicator').textContent = user + " is typing...";
-            document.getElementById('discoverMenu').style.display = 'none';
         }
 
         function showServer(server) {
@@ -259,15 +190,6 @@
             document.getElementById('chatBox').style.display = 'flex';
             document.getElementById('chatContent').innerHTML = `<div class="message">Chatting in ${server}</div>`;
             document.getElementById('typingIndicator').textContent = "Someone is typing...";
-            document.getElementById('discoverMenu').style.display = 'none';
-        }
-
-        function showContent(content) {
-            if (content === 'Discover') {
-                document.getElementById('discoverMenu').style.display = 'flex';
-            } else {
-                document.getElementById('discoverMenu').style.display = 'none';
-            }
         }
 
         function goBack() {
@@ -283,39 +205,12 @@
                 newMessage.className = 'message';
                 newMessage.textContent = this.value;
                 chatContent.appendChild(newMessage);
-                
-                // Add the message to local storage
-                var chatMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
-                chatMessages.push({
-                    user: 'User 1', // Replace with actual user name
-                    message: this.value
-                });
-                localStorage.setItem('chatMessages', JSON.stringify(chatMessages));
 
                 var typingIndicator = document.getElementById('typingIndicator');
                 typingIndicator.style.display = 'block';
 
-                // Simulate a response from the other user after a delay
-                setTimeout(function () {
-                    // Retrieve messages from local storage
-                    var chatMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+                var responses = [
 
-                    // Check if there's a new message from User 2
-                    var user2Message = chatMessages.find(message => message.user === 'User 2'); // Replace with actual user name
-
-                    if (user2Message) {
-                        var responseMessage = document.createElement('div');
-                        responseMessage.className = 'message';
-                        responseMessage.textContent = user2Message.message;
-                        chatContent.appendChild(responseMessage);
-                        chatContent.scrollTop = chatContent.scrollHeight;
-
-                        // Remove the message from local storage
-                        chatMessages = chatMessages.filter(message => message !== user2Message);
-                        localStorage.setItem('chatMessages', JSON.stringify(chatMessages));
-                    } else {
-                        // No new message, so respond randomly
-                        var responses = [
                             "Hello to you too!",
                             "How are you today?",
                             "Love you too.",
@@ -412,33 +307,56 @@
 "What's the most fun you've had recently?",
 "What's your favorite thing to cook or bake?",
 "What's the best advice you've ever received?"
-                        ];
-                        var responseMessage = document.createElement('div');
-                        responseMessage.className = 'message';
-                        responseMessage.textContent = responses[Math.floor(Math.random() * responses.length)];
-                        chatContent.appendChild(responseMessage);
-                        chatContent.scrollTop = chatContent.scrollHeight;
-                    }
-
+                    "Hello to you too!",
+                    "How are you today?",
+                    "Love you too.",
+                    "That's nice, let's have a party!",
+                    "Sure, sounds great!",
+                    "Let's catch up soon.",
+                    "I'm here for you.",
+                    "Absolutely, let's do it!",
+                    "I completely agree!",
+                    "That's a fantastic idea!",
+                    "Count me in!",
+                    "No way, really?",
+                    "I've been thinking about that too.",
+                    "Couldn't have said it better myself.",
+                    "Let's make it happen.",
+                    "The Devils Fingers Clasp around your throat, your happy eyes will never again look apon the earth in their extreme complexion, your brain, once hyper-active, reduced to rot in your shadowy grave. The day of your death has dawned."
+                    "What a great suggestion!",
+                    "I'm on board with that.",
+                    "That sounds fun!",
+                    "I'm excited for this.",
+                    "Tell me more about it!",
+                    "I didn't know that!",
+                    "You're absolutely right.",
+                    "Let's dive into it!",
+                    "I'd love to join you.",
+                    "When can we start?",
+                    "That's super interesting.",
+                    "I can't wait to see how it goes.",
+                    "Let's get this party started!",
+                    "I am made of ligaments!",
+                    "Who on earth asked me to eat Pandas?",
+                    "I LOVE PANDAS!",
+                    "Honestly, Tashi is just like a piece of toast to me... Crunchy...",
+                    "I'm thrilled about this.",
+                    "La France pour les Français! A France for only the French is the slogan of France’s right winged populist political party, the National Front FN. Founded in 1972 by Jean-Marie Le Pen, an openly anti-Semitic and racist politician, the FN has been seen, since its inception, as radical and controversial organization. "
+                ];
+                
+                setTimeout(function () {
+                    var responseMessage = document.createElement('div');
+                    responseMessage.className = 'message';
+                    responseMessage.textContent = responses[Math.floor(Math.random() * responses.length)];
+                    chatContent.appendChild(responseMessage);
                     typingIndicator.style.display = 'none';
+                    chatContent.scrollTop = chatContent.scrollHeight;
                 }, 1000);
 
                 this.value = '';
             }
         });
-
-        // Function to close the popup
-        function closePopup() {
-            document.getElementById('popup').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        // Show popup on page load
-        window.onload = function() {
-            document.getElementById('popup').style.display = 'flex';
-            setTimeout(closePopup, 5000); 
-        }
-
     </script>
 </body>
 </html>
+
